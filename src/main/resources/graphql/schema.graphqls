@@ -1,0 +1,33 @@
+type Query{
+    users: [User]
+    userById(userId: ID!) : User
+}
+
+type User{
+    userId: ID!
+    firstName: String
+    lastName: String
+    age: Int
+    profession: Profession
+}
+type Profession{
+    profId: ID!
+    profName: String
+    users: [User]
+}
+input CreateUserInput{
+    firstName: String!
+    LastName: String!
+    age: Int!
+    profId: Int!
+}
+
+input CreateProfessionInput{
+    profName: String!
+}
+
+type Mutation{
+    createUser(input :CreateUserInput!): User!
+    deleteUser(userId: ID!): String!
+    createProfession(input: CreateProfessionInput!): Profession!
+}
