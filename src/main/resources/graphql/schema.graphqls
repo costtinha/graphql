@@ -17,7 +17,7 @@ type Profession{
 }
 input CreateUserInput{
     firstName: String!
-    LastName: String!
+    lastName: String!
     age: Int!
     profId: Int!
 }
