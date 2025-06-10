@@ -12,6 +12,8 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 public class ProfessionController {
     private final ProfessionRepository professionRepository;
@@ -22,6 +24,15 @@ public class ProfessionController {
         this.service = service;
     }
 
+    @QueryMapping
+    public List<Profession> professions(){
+        return service.professions();
+    }
+    @QueryMapping
+    public Profession professionById(@Argument("profId") Integer profId){
+        return service.findProfessionById(profId);
+    }
+
     @SchemaMapping(typeName = "User", field = "profession")
     public Profession resolveProfession(User user){
         return professionRepository.findById(user.getProfId().getProfId()).orElseThrow(() -> new NotFoundException("Profissão não existe"));
@@ -30,6 +41,10 @@ public class ProfessionController {
     @MutationMapping
     public Profession createProfession(@Argument("input") CreateProfessionInput input){
         return service.save(input);
+    }
+    @MutationMapping
+    public String deleteProfession(@Argument("profId") Integer profId){
+        return service.deleteProfession(profId);
     }
 
 }

@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @SchemaMapping(typeName = "Profession", field = "users")
-    public List<User> resolveUser(Profession profession){
-        return service.findUserByProfId(profession.getProfId());
+    public List<User> resolveUsers(Profession profession){
+        return profession.getUsers();
     }
 }

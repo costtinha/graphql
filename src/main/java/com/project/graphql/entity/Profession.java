@@ -8,7 +8,8 @@ import java.util.List;
 @Entity
 @NamedQueries(
         {
-                @NamedQuery(name = "Profession.findProfessionByProfessionName", query = "SELECT p FROM Profession p WHERE p.profName = :profName")
+                @NamedQuery(name = "Profession.findProfessionByProfessionName", query = "SELECT p FROM Profession p WHERE p.profName = :profName"),
+                @NamedQuery(name = "Profession.findAllWithUsers", query = "SELECT p FROM Profession p LEFT JOIN FETCH p.users")
         })
 public class Profession {
 
@@ -17,7 +18,7 @@ public class Profession {
     private Integer profId;
     private String profName;
 
-    @OneToMany(mappedBy = "profId")
+    @OneToMany(mappedBy = "profId",fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<User> users;
 
